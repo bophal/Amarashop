@@ -1,6 +1,8 @@
 package com.bookshop.controller;
 
+//import java.awt.print.Book;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
@@ -20,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bookshop.domain.Book;
 import com.bookshop.domain.User;
 import com.bookshop.domain.security.PasswordResetToken;
 import com.bookshop.domain.security.Role;
 import com.bookshop.domain.security.UserRole;
+import com.bookshop.service.BookService;
 import com.bookshop.service.UserService;
 import com.bookshop.service.impl.UserSecurityService;
 import com.bookshop.utility.MailConstructor;
@@ -32,7 +36,7 @@ import com.bookshop.utility.SecurityUtility;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-public class HomeCopntroller {
+public class HomeController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
@@ -44,6 +48,9 @@ public class HomeCopntroller {
 	
 	@Autowired
 	private UserSecurityService userSecurityService;
+	
+	@Autowired
+	private BookService bookService;
 
 	@RequestMapping("/")
 	public String index() {
@@ -54,6 +61,14 @@ public class HomeCopntroller {
 	public String login(Model model) {
 		model.addAttribute("classActiveLogin", true);
 		return "myAccount";
+	}
+	
+	@RequestMapping("/bookshelf")
+	public String bookshelf(Model model) {
+		List<Book> bookList = bookService.findAll();
+		model.addAttribute("bookList", bookList);
+		
+		return "bookshelf";
 	}
 
 	@RequestMapping("/forgetPassword")
