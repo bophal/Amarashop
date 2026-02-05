@@ -1,5 +1,6 @@
 package com.bookshop.controller;
 
+import java.security.Principal;
 //import java.awt.print.Book;
 import java.util.HashSet;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -70,6 +72,13 @@ public class HomeController {
 		
 		return "bookshelf";
 	}
+	
+	@GetMapping("/myProfile")
+	public String myProfile(Model model, Principal principal) {
+	    User user = userService.findByUsername(principal.getName());
+	    model.addAttribute("user", user);
+	    return "myProfile";
+	}
 
 	@RequestMapping("/forgetPassword")
 	public String forgetPassword(HttpServletRequest request,
@@ -86,8 +95,8 @@ User user = userService.findByEmail(email);
 		
 		String password = SecurityUtility.randomPassword();
 		
-		//String encryptedPassword = SecurityUtility.passwordEncoder().encode(password);
-		//user.setPassword(encryptedPassword);
+		String encryptedPassword = SecurityUtility.passwordEncoder().encode(password);
+		user.setPassword(encryptedPassword);
 		
 		userService.save(user);
 		
@@ -133,8 +142,8 @@ User user = userService.findByEmail(email);
 		
 		String password = SecurityUtility.randomPassword();
 		
-		//String encryptedPassword = SecurityUtility.passwordEncoder().encode(password);
-		//user.setPassword(encryptedPassword);
+		String encryptedPassword = SecurityUtility.passwordEncoder().encode(password);
+		user.setPassword(encryptedPassword);
 		
 		Role role = new Role();
 		role.setRoleId(1);

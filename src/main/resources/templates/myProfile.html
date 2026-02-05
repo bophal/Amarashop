@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
-<head th:replace="common/header :: common-header" />
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/header :: common-header"></head>
 
 <body>
 	<div th:replace="common/header :: navbar" />
@@ -10,7 +10,7 @@
 		<div class="row" style="margin-bottom: -100px;">
 			<div class="col-xs-8">
 				<h2 class="section-headline">
-					<h2 class="section-headline"><span th:text="${#strings.toUpperCase{user.username}}"></span></h2>
+					<span th:text="${user != null ? #strings.toUpperCase(user.username) : ''}"></span>
 				</h2>
 			</div>
 			<div class="col-xs-4">

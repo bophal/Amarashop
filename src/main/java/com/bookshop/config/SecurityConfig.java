@@ -48,7 +48,8 @@ public class SecurityConfig {
                         "/newUser",
             			"/forgetPassword",
                         "/login",
-            			"/fonts/**"
+            			"/fonts/**",
+                        "/bookshelf"
                     ).permitAll()
                     .anyRequest().authenticated()
             )
