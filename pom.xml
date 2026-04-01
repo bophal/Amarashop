@@ -5,14 +5,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.7</version>
+		<version>3.5.8</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.bookshop</groupId>
-	<artifactId>BookShop</artifactId>
+	<groupId>com.adminportal</groupId>
+	<artifactId>adminportal</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>BookShop</name>
-	<description>Demo project for Spring Boot</description>
+	<name>adminportal</name>
+	<description>adminportal project for Spring Boot</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -30,7 +30,7 @@
 		<java.version>21</java.version>
 	</properties>
 	<dependencies>
-		<dependency>
+	<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
@@ -69,25 +69,17 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
 		</dependency>
-		
 		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4.7</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		<dependency>
-            <groupId>org.springframework.boot</groupId>
-             <artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
+		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-           <groupId>org.springframework.boot</groupId>
-           <artifactId>spring-boot-starter-thymeleaf</artifactId>
-         </dependency>
 	</dependencies>
 
 	<build>
