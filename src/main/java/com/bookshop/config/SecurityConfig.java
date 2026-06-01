@@ -19,6 +19,11 @@ public class SecurityConfig {
     public SecurityConfig(UserSecurityService userSecurityService) {
         this.userSecurityService = userSecurityService;
     }
+    
+  /*  @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }*/
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -49,7 +54,12 @@ public class SecurityConfig {
             			"/forgetPassword",
                         "/login",
             			"/fonts/**",
-                        "/bookshelf"
+                        "/bookshelf",
+                        "/bookDetail/**",
+                        "/hours",
+            			"/faq",
+            			"/searchByCategory",
+            			"/searchBook"
                     ).permitAll()
                     .anyRequest().authenticated()
             )

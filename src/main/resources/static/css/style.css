@@ -54,3 +54,21 @@ hr {
     padding: 5px 22px;
 	
 }
+/* Book list thumbnail */
+.book-thumbnail {
+    width: 80px;
+    height: 110px;
+    object-fit: cover;      /* crops image to fit without stretching */
+    object-position: center;
+    border: 1px solid #ddd;
+}
+
+/* Book detail large image */
+.book-detail-img {
+    width: 220px;
+    height: 300px;
+    object-fit: cover;
+    object-position: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}

@@ -1,13 +1,15 @@
 package com.bookshop.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.bookshop.domain.security.Authority;
 import com.bookshop.domain.security.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,8 +21,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name="users")
 public class User implements UserDetails {
 	
 	@Id
@@ -37,10 +42,19 @@ public class User implements UserDetails {
 	private String phone;
 	private boolean enabled=true;
 	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+	private ShoppingCart shoppingCart;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	private List<UserShipping> userShippingList;
+	
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	private List<UserPayment> userPaymentList;
+	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<UserRole> userRoles = new HashSet<>();
-	
 	
 	public Long getId() {
 		return id;
@@ -94,17 +108,42 @@ public class User implements UserDetails {
 	public void setUserRoles(Set<UserRole> userRoles) {
 		this.userRoles = userRoles;
 	}
-	//private String phone;
-	//private boolean enabled=true;
-
+	
+	
+	
+	public List<UserShipping> getUserShippingList() {
+		return userShippingList;
+	}
+	public void setUserShippingList(List<UserShipping> userShippingList) {
+		this.userShippingList = userShippingList;
+	}
+	public List<UserPayment> getUserPaymentList() {
+		return userPaymentList;
+	}
+	public void setUserPaymentList(List<UserPayment> userPaymentList) {
+		this.userPaymentList = userPaymentList;
+	}
+	
+	public ShoppingCart getShoppingCart() {
+		return shoppingCart;
+	}
+	public void setShoppingCart(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
+	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Set<GrantedAuthority> authorites = new HashSet<>();
-		userRoles.forEach(ur -> authorites.add(new Authority(ur.getRole().getName())));
+		//userRoles.forEach(ur -> authorites.add(new Authority(ur.getRole().getName())));
+		List<GrantedAuthority> authorities = new ArrayList<>();
+	    for (UserRole userRole : userRoles) {
+	        // ADD THIS NULL CHECK
+	        if (userRole.getRole() != null) {
+	            authorities.add(new SimpleGrantedAuthority(userRole.getRole().getName()));
+	        }
+	    }
 		
 		return authorites;
 	}
-	
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
@@ -124,6 +163,10 @@ public class User implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return enabled;
+	}
+	public Object getOrderList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

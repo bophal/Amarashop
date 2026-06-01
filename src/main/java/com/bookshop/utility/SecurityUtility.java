@@ -1,11 +1,8 @@
 package com.bookshop.utility;
 
-import java.security.SecureRandom;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,14 +14,17 @@ public class SecurityUtility {
 	private PasswordEncoder passwordEncoder;
 private static final String SALT = "salt"; // Salt should be protected carefully
 	
-	@Bean
+	/*@Bean
 	public static BCryptPasswordEncoder passwordEncoder1() {
 		return new BCryptPasswordEncoder(12, new SecureRandom(SALT.getBytes()));
-	}
+	}*/
 	
+	 public static BCryptPasswordEncoder passwordEncoder1() {
+	        return new BCryptPasswordEncoder();  // always returns a valid encoder
+	    }
 	
 	/*@Bean
-    public  PasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }*/
     // remove @Bean passwordEncoder() - handled in SecurityConfig
